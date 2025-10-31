@@ -6,23 +6,14 @@ import { useRouter } from 'next/navigation';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const { login } = useAuth();
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-
-    // Login de teste - funciona com qualquer email/senha
-    if (email && password) {
-      const success = login(email, password);
-      if (success) {
-        router.push('/dashboard');
-      }
-    } else {
-      setError('Preencha todos os campos');
-    }
+    // Login automático - funciona com qualquer coisa
+    login(email, password);
+    router.push('/dashboard');
   };
 
   return (
@@ -37,11 +28,6 @@ export default function Login() {
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
-            </div>
-          )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <input
