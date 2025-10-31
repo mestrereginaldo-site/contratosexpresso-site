@@ -293,6 +293,11 @@ export default function ContratoPage() {
   const slug = params.slug
   const contrato = contratosData[slug]
 
+  // DEBUG: Adicione isto temporariamente para verificar
+  console.log('Slug recebido:', slug)
+  console.log('Contrato encontrado:', contrato)
+  console.log('Todos os slugs disponíveis:', Object.keys(contratosData))
+
   if (!contrato) {
     return (
       <main>
@@ -300,6 +305,7 @@ export default function ContratoPage() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Contrato não encontrado</h1>
+            <p className="text-gray-600 mb-2">Slug: {slug}</p>
             <a href="/contratos" className="text-blue-600 hover:text-blue-800">
               ← Voltar para contratos
             </a>
