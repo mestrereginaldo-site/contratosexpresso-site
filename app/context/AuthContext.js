@@ -8,8 +8,8 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar se usuário está logado ao carregar a página
-    const savedUser = localStorage.getItem('user');
+    // Só executa no cliente
+    const savedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = (email, password) => {
-    // Simulação de login - em produção, isso viria de uma API
+    // Login simples para teste
     const userData = {
       id: 1,
       email: email,
@@ -26,13 +26,17 @@ export function AuthProvider({ children }) {
     };
     
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(userData));
+    }
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+    }
   };
 
   return (
@@ -43,5 +47,9 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
 }
