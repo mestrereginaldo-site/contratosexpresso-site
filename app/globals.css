@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+/* Melhorias para mobile */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Melhorar a legibilidade em mobile */
+p, li {
+  @apply leading-relaxed;
+}
+
+/* Botões com touch-friendly */
+button, a {
+  @apply min-h-[44px] min-w-[44px];
+}
