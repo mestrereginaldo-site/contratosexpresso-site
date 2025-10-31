@@ -14,13 +14,11 @@ export default function Login() {
     e.preventDefault();
     setError('');
 
-    // Login simples - em produção, validar com API
+    // Login de teste - funciona com qualquer email/senha
     if (email && password) {
       const success = login(email, password);
       if (success) {
         router.push('/dashboard');
-      } else {
-        setError('Credenciais inválidas');
       }
     } else {
       setError('Preencha todos os campos');
@@ -35,7 +33,7 @@ export default function Login() {
             Acesse sua conta
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Área exclusiva para clientes
+            Use qualquer email e senha para teste
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -46,10 +44,7 @@ export default function Login() {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="sr-only">Email</label>
               <input
-                id="email"
-                name="email"
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
@@ -59,10 +54,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Senha</label>
               <input
-                id="password"
-                name="password"
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
