@@ -1,8 +1,8 @@
 'use client'
 import { useParams } from 'next/navigation'
-import Header from '../../../components/Header'
-import Footer from '../../../components/Footer'
-import CheckoutForm from '../../../components/CheckoutForm'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import CheckoutForm from '../../components/CheckoutForm'
 
 // Dados dos contratos (em um caso real, viria de um banco de dados)
 const contratosData = {
@@ -88,6 +88,202 @@ const contratosData = {
       "Suporte prioritário",
       "Download instantâneo",
       "Suporte ilimitado por 30 dias"
+    ]
+  },
+  'contrato-social': {
+    id: 7,
+    nome: "Contrato Social",
+    preco: 247,
+    descricao: "Para formalizar a abertura da sua empresa com segurança jurídica",
+    beneficios: [
+      "Modelo personalizável",
+      "Inclusão de cláusulas necessárias",
+      "Orientação sobre enquadramento",
+      "Atualizado conforme a legislação",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-locacao': {
+    id: 8,
+    nome: "Contrato de Locação",
+    preco: 87,
+    descricao: "Para alugar imóveis residenciais ou comerciais",
+    beneficios: [
+      "Proteção para locador e locatário",
+      "Cláusulas de manutenção",
+      "Definição de reajustes",
+      "Multas e penalidades",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-compra-venda': {
+    id: 9,
+    nome: "Contrato de Compra e Venda",
+    preco: 127,
+    descricao: "Para transações de compra e venda de bens móveis ou imóveis",
+    beneficios: [
+      "Segurança na transação",
+      "Definição de condições de pagamento",
+      "Cláusulas de entrega",
+      "Garantias e responsabilidades",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-trabalho-clt': {
+    id: 10,
+    nome: "Contrato de Trabalho CLT",
+    preco: 107,
+    descricao: "Para contratação de funcionários regidos pela CLT",
+    beneficios: [
+      "Conforme legislação trabalhista",
+      "Cláusulas de experiência",
+      "Definição de salário e benefícios",
+      "Jornada de trabalho",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-consultoria': {
+    id: 11,
+    nome: "Contrato de Consultoria",
+    preco: 117,
+    descricao: "Ideal para consultores e especialistas que prestam serviços de assessoria",
+    beneficios: [
+      "Definição do escopo da consultoria",
+      "Cláusulas de não concorrência",
+      "Confidencialidade das informações",
+      "Forma de pagamento e honorários",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-franquia': {
+    id: 12,
+    nome: "Contrato de Franquia",
+    preco: 347,
+    descricao: "Para estabelecer relações de franquia entre franqueador e franqueado",
+    beneficios: [
+      "Direitos e obrigações das partes",
+      "Uso da marca e know-how",
+      "Taxas e royalties",
+      "Território de atuação",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-licenciamento': {
+    id: 13,
+    nome: "Contrato de Licenciamento",
+    preco: 187,
+    descricao: "Para licenciar o uso de marcas, patentes e propriedade intelectual",
+    beneficios: [
+      "Direitos de uso da propriedade intelectual",
+      "Remuneração e royalties",
+      "Prazo e território",
+      "Exclusividade ou não exclusividade",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-doacao': {
+    id: 14,
+    nome: "Contrato de Doação",
+    preco: 77,
+    descricao: "Para formalizar doações de bens móveis ou imóveis",
+    beneficios: [
+      "Formalização da doação",
+      "Cláusulas de irrevogabilidade",
+      "Aceitação do donatário",
+      "Isenção de responsabilidade",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-comodato': {
+    id: 15,
+    nome: "Contrato de Comodato",
+    preco: 67,
+    descricao: "Para empréstimo gratuito de bens móveis ou imóveis",
+    beneficios: [
+      "Empréstimo gratuito de bens",
+      "Obrigações do comodatário",
+      "Prazo de devolução",
+      "Responsabilidade por conservação",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-transporte': {
+    id: 16,
+    nome: "Contrato de Transporte",
+    preco: 137,
+    descricao: "Para contratar serviços de transporte de cargas ou pessoas",
+    beneficios: [
+      "Definição do objeto do transporte",
+      "Responsabilidade do transportador",
+      "Prazo e local de entrega",
+      "Valor e forma de pagamento",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-seguro': {
+    id: 17,
+    nome: "Contrato de Seguro",
+    preco: 157,
+    descricao: "Para estabelecer relações entre seguradoras e segurados",
+    beneficios: [
+      "Coberturas e riscos",
+      "Prêmios e indenizações",
+      "Exclusões de cobertura",
+      "Prazo e vigência",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-construcao': {
+    id: 18,
+    nome: "Contrato de Construção Civil",
+    preco: 227,
+    descricao: "Para obras e serviços de engenharia e construção",
+    beneficios: [
+      "Escopo da obra e especificações",
+      "Prazo de execução",
+      "Forma de pagamento",
+      "Garantias e responsabilidades",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-manutencao': {
+    id: 19,
+    nome: "Contrato de Manutenção",
+    preco: 97,
+    descricao: "Para serviços de manutenção preventiva e corretiva",
+    beneficios: [
+      "Escopo dos serviços de manutenção",
+      "Periodicidade e frequência",
+      "Valor e forma de pagamento",
+      "Prazo de resposta para emergências",
+      "Download instantâneo",
+      "Suporte por email"
+    ]
+  },
+  'contrato-publicidade': {
+    id: 20,
+    nome: "Contrato de Publicidade",
+    preco: 167,
+    descricao: "Para contratação de serviços de publicidade e propaganda",
+    beneficios: [
+      "Definição da campanha publicitária",
+      "Mídias e veículos",
+      "Valores e comissões",
+      "Prazo de veiculação",
+      "Download instantâneo",
+      "Suporte por email"
     ]
   }
 }
