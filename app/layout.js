@@ -9,8 +9,8 @@ export const metadata = {
         default: 'Contratos Expresso - Modelos Prontos com IA | Download Imediato',
         template: '%s | Contratos Expresso'
     },
-    description: 'Contratos jurídicos prontos para usar. Desenvolvidos por advogados. Baixe em 5 minutos.',
-    keywords: 'contratos prontos, modelo contrato, contrato prestação serviços, contrato trabalho PJ, NDA, contrato parceria',
+    description: 'Contratos jurídicos prontos para usar. Desenvolvidos por advogados. Baixe em 5 minutos. Contrato de Prestação de Serviços, contrato trabalho PJ, NDA, contrato parceria, contrato desenvolvimento software.',
+    keywords: 'contratos prontos, modelo contrato, contrato prestação serviços, contrato trabalho PJ, NDA, contrato parceria, contrato desenvolvimento software',
     authors: [{ name: 'Contratos Expresso' }],
     creator: 'Contratos Expresso',
     publisher: 'Contratos Expresso',
@@ -38,14 +38,18 @@ export const metadata = {
         },
     },
     icons: {
-        icon: '/favicon.ico',
-        apple: '/apple-touch-icon.png',
+        icon: '/favicon.svg',  // CORRIGIDO: usando o SVG que você tem
+        shortcut: '/favicon.svg',
+        apple: '/favicon.svg', // Usando o mesmo SVG para Apple também
     },
 }
 
 export default function RootLayout({ children }) {
     return (
         <html lang="pt-BR">
+            <head>
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+            </head>
             <body className={inter.className}>
                 <AuthProvider>
                     {children}
