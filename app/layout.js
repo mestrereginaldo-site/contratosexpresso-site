@@ -42,7 +42,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.ico" />
         <link rel="canonical" href="https://contratosexpresso.com.br" />
       </head>
       <body className={inter.className}>
@@ -51,3 +52,4 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
+EOF
