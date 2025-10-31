@@ -13,14 +13,14 @@ export default function Pricing() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
-          {/* Plano Avulso */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Plano Básico */}
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             <div className="p-6 md:p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Contrato Avulso</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Plano Básico</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold text-gray-900">R$ 97</span>
-                <span className="text-gray-600 ml-2">/ uma vez</span>
+                <span className="text-gray-600 ml-2">/ mês</span>
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -28,25 +28,13 @@ export default function Pricing() {
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>1 modelo de contrato escolhido</span>
+                  <span>5 modelos de contratos essenciais</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Personalização com IA</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Download instantâneo</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Suporte por email</span>
+                  <span>Download ilimitado dos contratos</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,29 +42,34 @@ export default function Pricing() {
                   </svg>
                   <span>Atualizações gratuitas</span>
                 </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Suporte por email</span>
+                </li>
               </ul>
 
               <Link 
-                href="/contratos"
+                href="/assinatura?plano=basico"
                 className="block w-full bg-blue-600 text-white text-center py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg"
               >
-                Escolher Contrato
+                Assinar Plano Básico
               </Link>
             </div>
           </div>
 
-          {/* Plano Essencial - COM MAIS POPULAR FIXADO */}
-          <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-600 overflow-hidden relative">
-            {/* Badge MAIS POPULAR - AGORA FIXO E VISÍVEL */}
+          {/* Plano Profissional - MAIS POPULAR */}
+          <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-600 overflow-hidden relative transform hover:scale-105 transition-all duration-300">
             <div className="bg-blue-600 text-white text-center py-3">
               <span className="font-bold text-lg">🏆 MAIS POPULAR</span>
             </div>
             
             <div className="p-6 md:p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Pacote Essencial</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Plano Profissional</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold text-gray-900">R$ 197</span>
-                <span className="text-gray-600 ml-2">/ por mês</span>
+                <span className="text-gray-600 ml-2">/ mês</span>
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -84,13 +77,19 @@ export default function Pricing() {
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>10 modelos de contratos</span>
+                  <span>Todos os 12 modelos de contratos</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Todos os recursos do avulso</span>
+                  <span>Download ilimitado</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Atualizações gratuitas</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,21 +101,72 @@ export default function Pricing() {
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Revisão de 1 contrato/mês</span>
+                  <span>Suporte prioritário</span>
+                </li>
+              </ul>
+
+              <Link 
+                href="/assinatura?plano=profissional"
+                className="block w-full bg-blue-600 text-white text-center py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg"
+              >
+                Assinar Plano Profissional
+              </Link>
+            </div>
+          </div>
+
+          {/* Plano Empresarial */}
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className="p-6 md:p-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Plano Empresarial</h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-gray-900">R$ 497</span>
+                <span className="text-gray-600 ml-2">/ mês</span>
+              </div>
+
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Todos os modelos de contratos + novos</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Acesso vitalício aos baixados</span>
+                  <span>Download ilimitado para múltiplos usuários</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Atualizações gratuitas</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Consultoria 1h/mês</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Suporte prioritário 24/7</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Personalização de contratos</span>
                 </li>
               </ul>
 
               <Link 
-                href="/assinatura"
-                className="block w-full bg-blue-600 text-white text-center py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg"
+                href="/assinatura?plano=empresarial"
+                className="block w-full bg-blue-600 text-white text-center py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg"
               >
-                Assinar Agora
+                Assinar Plano Empresarial
               </Link>
             </div>
           </div>
