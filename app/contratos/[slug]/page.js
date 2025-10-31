@@ -1,8 +1,8 @@
 'use client'
 import { useParams } from 'next/navigation'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
-import CheckoutForm from '../../components/CheckoutForm'
+import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
+import CheckoutForm from '../../../components/CheckoutForm'
 
 // Dados dos contratos (em um caso real, viria de um banco de dados)
 const contratosData = {
