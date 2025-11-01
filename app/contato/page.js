@@ -106,7 +106,7 @@ export default function Contato() {
                   Para dúvidas sobre contratos já adquiridos, priorizamos seu atendimento via WhatsApp.
                 </p>
                 <a 
-                  href="https://wa.me/5511999999999?text=Olá! Preciso de ajuda com um contrato."
+                  href="https://wa.me/5571986482241?text=Olá! Preciso de ajuda com um contrato."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold"
