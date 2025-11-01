@@ -1,0 +1,155 @@
+// public/downloads/contrato-prestacao-servicos-basico.pdf
+// (Vou criar o conteúdo HTML que você pode converter para PDF)
+
+const contratoContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contrato de Prestação de Serviços - Dr. Reginaldo Oliveira</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+        .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
+        .clausula { margin-bottom: 25px; }
+        .clausula-titulo { font-weight: bold; margin-bottom: 8px; color: #2c5aa0; }
+        .assinaturas { margin-top: 60px; display: flex; justify-content: space-between; }
+        .assinatura { width: 45%; border-top: 1px solid #333; padding-top: 10px; text-align: center; }
+        .aviso { background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 20px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h1>
+        <p><strong>Modelo Profissional Desenvolvido por Dr. Reginaldo Oliveira, Esq.</strong></p>
+        <p>Contrato válido conforme Lei nº 13.467/2017 e Art. 593 do Código Civil</p>
+    </div>
+
+    <div class="aviso">
+        <strong>⚠️ AVISO IMPORTANTE:</strong> Este é um modelo básico. Para contratos complexos ou valores elevados, 
+        recomenda-se consultoria jurídica personalizada com Dr. Reginaldo Oliveira.
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 1ª - DAS PARTES</div>
+        <p><strong>CONTRATANTE:</strong> [NOME COMPLETO/RAZÃO SOCIAL], [NACIONALIDADE], [ESTADO CIVIL], [PROFISSÃO], 
+        portador(a) do [CPF/CNPJ] nº [NÚMERO], inscrito(a) no [RG/IE] nº [NÚMERO], residente e domiciliado(a) 
+        [ENDEREÇO COMPLETO].</p>
+        
+        <p><strong>CONTRATADO:</strong> [NOME COMPLETO/RAZÃO SOCIAL], [NACIONALIDADE], [ESTADO CIVIL], [PROFISSÃO], 
+        portador(a) do [CPF/CNPJ] nº [NÚMERO], inscrito(a) no [RG/IE] nº [NÚMERO], residente e domiciliado(a) 
+        [ENDEREÇO COMPLETO].</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 2ª - DO OBJETO</div>
+        <p>O presente contrato tem por objeto a prestação de serviços de [DESCRIÇÃO ESPECÍFICA DOS SERVIÇOS], 
+        conforme especificações técnicas constantes do ANEXO I, que integra este instrumento.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 3ª - DO PRAZO</div>
+        <p>O prazo para execução dos serviços é de [NÚMERO] dias, contados a partir de [DATA DE INÍCIO], 
+        podendo ser prorrogado mediante acordo escrito entre as partes.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 4ª - DA REMUNERAÇÃO</div>
+        <p>Pelos serviços prestados, o CONTRATANTE pagará ao CONTRATADO o valor total de R$ [VALOR] 
+        ([VALOR POR EXTENSO]), na seguinte forma:</p>
+        <ul>
+            <li>[FORMA DE PAGAMENTO 1]</li>
+            <li>[FORMA DE PAGAMENTO 2]</li>
+        </ul>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 5ª - DAS OBRIGAÇÕES DO CONTRATADO</div>
+        <p>5.1. Executar os serviços com diligência e capacidade técnica adequadas;<br>
+        5.2. Cumprir os prazos estabelecidos;<br>
+        5.3. Emitir nota fiscal/comprovante de prestação de serviços;<br>
+        5.4. Manter sigilo sobre informações confidenciais.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 6ª - DAS OBRIGAÇÕES DO CONTRATANTE</div>
+        <p>6.1. Fornecer todas as informações necessárias à execução dos serviços;<br>
+        6.2. Efetuar os pagamentos nos prazos ajustados;<br>
+        6.3. Fornecer ambiente adequado quando necessário.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 7ª - DA RESCISÃO</div>
+        <p>O presente contrato poderá ser rescindido por qualquer das partes, mediante aviso prévio de 
+        [NÚMERO] dias, ou imediatamente em caso de descumprimento das obrigações assumidas.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 8ª - DO FORO</div>
+        <p>Para dirimir quaisquer questões oriundas deste contrato, as partes elegem o foro da comarca de 
+        [CIDADE/ESTADO], renunciando a qualquer outro, por mais privilegiado que seja.</p>
+    </div>
+
+    <div class="clausula">
+        <div class="clausula-titulo">CLÁUSULA 9ª - DA AUTONOMIA DO PRESTADOR</div>
+        <p>Fica expressamente estabelecido que não há qualquer vínculo empregatício entre as partes, 
+        gozando o CONTRATADO de plena autonomia técnica e administrativa para execução dos serviços, 
+        nos termos da Lei nº 13.467/2017.</p>
+    </div>
+
+    <div class="assinaturas">
+        <div class="assinatura">
+            <p>___________________________________</p>
+            <p><strong>CONTRATANTE</strong></p>
+            <p>CPF/CNPJ: _________________________</p>
+        </div>
+        <div class="assinatura">
+            <p>___________________________________</p>
+            <p><strong>CONTRATADO</strong></p>
+            <p>CPF/CNPJ: _________________________</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; font-size: 12px; color: #666; text-align: center;">
+        <p><strong>Modelo desenvolvido por Dr. Reginaldo Oliveira, Esq.</strong></p>
+        <p>Especialista em Direito Contratual | OAB/SP 123.456</p>
+        <p>contato@contratosexpresso.com.br | www.contratosexpresso.com.br</p>
+        <p>⚠️ Este documento não substitui consultoria jurídica personalizada</p>
+    </div>
+
+    <div style="page-break-before: always; margin-top: 40px;">
+        <h2>ANEXO I - ESPECIFICAÇÕES TÉCNICAS DOS SERVIÇOS</h2>
+        <p><strong>DESCRIÇÃO DETALHADA DOS SERVIÇOS:</strong></p>
+        <p>[ESPECIFICAR AQUI TODOS OS DETALHES DOS SERVIÇOS A SEREM PRESTADOS]</p>
+        
+        <p><strong>ENTREGÁVEIS:</strong></p>
+        <ul>
+            <li>[ITEM 1]</li>
+            <li>[ITEM 2]</li>
+            <li>[ITEM 3]</li>
+        </ul>
+        
+        <p><strong>CRITÉRIOS DE ACEITAÇÃO:</strong></p>
+        <ul>
+            <li>[CRITÉRIO 1]</li>
+            <li>[CRITÉRIO 2]</li>
+        </ul>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+        <h3>🎯 GUIA DE PREENCHIMENTO - DR. REGINALDO OLIVEIRA</h3>
+        <p><strong>1. Objeto:</strong> Seja específico! Evite descrições vagas como "prestação de serviços".</p>
+        <p><strong>2. Prazo:</strong> Estipule marcos intermediários para projetos longos.</p>
+        <p><strong>3. Pagamento:</strong> Vincule pagamentos a entregas específicas.</p>
+        <p><strong>4. Anexo I:</strong> Esta é a parte mais importante! Detalhe tudo.</p>
+        <br>
+        <p><strong>💡 Precisa de versões mais robustas?</strong> Conheça nossos pacotes completos com:</p>
+        <ul>
+            <li>+50 cláusulas de proteção</li>
+            <li>Jurisprudência atualizada</li>
+            <li>Consultoria personalizada</li>
+        </ul>
+        <p><strong>Visite: www.contratosexpresso.com.br/contratos</strong></p>
+    </div>
+</body>
+</html>
+`;
