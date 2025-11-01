@@ -64,6 +64,9 @@ export default function Header() {
               <Link href="/contratos" className="px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors" onClick={() => setIsMenuOpen(false)}>
                 Contratos
               </Link>
+                   <Link href="/artigos" className="px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                Artigos
+              </Link>
               <Link href="/como-funciona" className="px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors" onClick={() => setIsMenuOpen(false)}>
                 Como Funciona
               </Link>
