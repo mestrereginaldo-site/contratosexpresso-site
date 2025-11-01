@@ -920,11 +920,6 @@ const artigosData = {
     tempoLeitura: '46 min de leitura',
     autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Digital'
   },
-    // No final de cada artigo, adicione:
-import LeadMagnetCTA from '../../../components/LeadMagnetCTA'
-
-// No return do componente do artigo, antes do Footer:
-<LeadMagnetCTA />
   'contrato-comodato': {
     slug: 'contrato-comodato',
     titulo: 'Contrato de Comodato 2025: Empréstimo Gratuito com Proteção Jurídica na Economia Colaborativa',
