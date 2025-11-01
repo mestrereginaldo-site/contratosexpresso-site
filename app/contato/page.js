@@ -68,7 +68,7 @@ export default function Contato() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600">contato@contratosexpresso.com</p>
+                    <p className="text-gray-600">contato@contratosexpresso.com.br</p>
                     <p className="text-sm text-gray-500">Resposta em até 24h</p>
                   </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Contato() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">WhatsApp</h3>
-                    <p className="text-gray-600">(11) 99999-9999</p>
+                    <p className="text-gray-600">(71) 98648-2241</p>
                     <p className="text-sm text-gray-500">Atendimento rápido</p>
                   </div>
                 </div>
