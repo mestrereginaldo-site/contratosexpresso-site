@@ -2,61 +2,67 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
 
-// Dados dos artigos - vamos começar com 6 artigos fundamentais
+// Dados dos artigos - DATAS ATUALIZADAS PARA 2025
 const artigos = [
   {
     slug: "contrato-pj-vs-clt",
-    titulo: "Contrato PJ vs CLT: Qual a Melhor Escolha em 2024?",
-    descricao: "Guia completo para entender as diferenças e escolher o melhor tipo de contratação para sua empresa.",
+    titulo: "Contrato PJ vs CLT: Análise Completa para 2025",
+    descricao: "Guia definitivo com as últimas mudanças legislativas para ajudar sua empresa a escolher o melhor tipo de contratação.",
     imagem: "/images/artigos/contrato-pj-clt.jpg",
-    data: "15 de Janeiro, 2024",
+    data: "25 de Agosto, 2025",
     categoria: "Contratos de Trabalho",
-    tempoLeitura: "5 min de leitura"
+    tempoLeitura: "12 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   },
   {
     slug: "5-erros-contratos-trabalho", 
-    titulo: "5 Erros Fatais em Contratos de Trabalho que Custam Caro",
-    descricao: "Evite esses erros comuns que podem levar a processos trabalhistas e prejuízos financeiros.",
+    titulo: "7 Erros Fatais em Contratos de Trabalho que Podem Custar Milhares",
+    descricao: "Análise detalhada dos erros mais comuns e caros em contratos trabalhistas com base em jurisprudência recente.",
     imagem: "/images/artigos/erros-contratos-trabalho.jpg",
-    data: "12 de Janeiro, 2024",
+    data: "2 de Setembro, 2025",
     categoria: "Contratos de Trabalho",
-    tempoLeitura: "4 min de leitura"
+    tempoLeitura: "15 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   },
   {
     slug: "contrato-social-passo-a-passo",
-    titulo: "Contrato Social: Passo a Passo para Abrir sua Empresa", 
-    descricao: "Aprenda como elaborar um contrato social correto e evite problemas futuros na sua empresa.",
+    titulo: "Contrato Social 2025: Guia Completo para Abrir sua Empresa com Segurança", 
+    descricao: "Passo a passo atualizado com as novas exigências legais e estratégias para proteger sócios e negócios.",
     imagem: "/images/artigos/contrato-social.jpg",
-    data: "10 de Janeiro, 2024",
+    data: "15 de Setembro, 2025",
     categoria: "Contratos Empresariais",
-    tempoLeitura: "6 min de leitura"
+    tempoLeitura: "18 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   },
   {
     slug: "contrato-locacao-10-clausulas",
-    titulo: "Contrato de Locação: 10 Cláusulas que Você Precisa Incluir",
-    descricao: "Proteja seu imóvel e evite problemas com inquilinos com essas cláusulas essenciais.",
+    titulo: "Contrato de Locação 2025: 15 Cláusulas Essenciais para Proteger seu Patrimônio",
+    descricao: "Guia completo com as cláusulas obrigatórias e estratégicas para locações residenciais e comerciais.",
     imagem: "/images/artigos/contrato-locacao.jpg",
-    data: "8 de Janeiro, 2024",
+    data: "25 de Setembro, 2025",
     categoria: "Locação e Imóveis", 
-    tempoLeitura: "5 min de leitura"
+    tempoLeitura: "20 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   },
   {
     slug: "lgpd-na-pratica",
-    titulo: "LGPD na Prática: O que Sua Empresa Precisa Fazer",
-    descricao: "Descubra como adaptar sua empresa à Lei Geral de Proteção de Dados de forma simples e eficaz.",
+    titulo: "LGPD 2025: Implementação Prática para Empresas de Todos os Portes",
+    descricao: "Guia passo a passo para adequação completa à Lei Geral de Proteção de Dados com foco em resultados práticos.",
     imagem: "/images/artigos/lgpd.jpg",
-    data: "5 de Janeiro, 2024", 
+    data: "5 de Outubro, 2025", 
     categoria: "Dicas Jurídicas",
-    tempoLeitura: "4 min de leitura"
+    tempoLeitura: "25 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   },
   {
     slug: "contrato-internet-riscos",
-    titulo: "Posso Usar Contrato da Internet? Riscos e Alternativas",
-    descricao: "Entenda os perigos de usar contratos baixados da internet e como se proteger.",
+    titulo: "Contratos da Internet: Os 12 Riscos Ocultos que Podem Destruir seu Negócio",
+    descricao: "Análise técnica dos perigos escondidos em modelos genéricos e estratégias para proteção jurídica eficaz.",
     imagem: "/images/artigos/contrato-internet.jpg",
-    data: "3 de Janeiro, 2024",
+    data: "15 de Outubro, 2025",
     categoria: "Perguntas Frequentes",
-    tempoLeitura: "3 min de leitura"
+    tempoLeitura: "22 min de leitura",
+    autor: "Dr. Reginaldo Oliveira"
   }
 ]
 
