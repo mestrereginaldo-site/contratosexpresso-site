@@ -66,7 +66,7 @@ export default function ObrigadoPage() {
             </div>
 
             <div className="mt-8 text-blue-200 text-sm">
-              ⚡ Em caso de dúvidas, entre em contato: contato@contratosexpresso.com
+              ⚡ Em caso de dúvidas, entre em contato: contato@contratosexpresso.com.br
             </div>
           </div>
         </div>
