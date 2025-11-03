@@ -1,226 +1,221 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function CheckoutForm({ contrato }) {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    cpf: '',
-    telefone: ''
-  })
+  const [email, setEmail] = useState('')
+  const [nome, setNome] = useState('')
+  const [empresa, setEmpresa] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [metodoPagamento, setMetodoPagamento] = useState('pix')
+  const [erro, setErro] = useState('')
 
-  const [paymentMethod, setPaymentMethod] = useState('pix')
+  // ⚠️ CORREÇÃO: Verificar se contrato existe antes de acessar propriedades
+  if (!contrato) {
+    return (
+      <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando informações do contrato...</p>
+        </div>
+      </div>
+    )
+  }
 
-  const handleSubmit = (e) => {
+  // Calcular desconto Pix (5%)
+  const precoOriginal = contrato.preco
+  const descontoPix = metodoPagamento === 'pix'
+  const precoComDesconto = descontoPix ? precoOriginal * 0.95 : precoOriginal
+  const valorDesconto = precoOriginal - precoComDesconto
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    // Validar formulário
-    if (!formData.nome || !formData.email || !formData.cpf || !formData.telefone) {
-      alert('Por favor, preencha todos os campos obrigatórios.')
-      return
+    setLoading(true)
+    setErro('')
+
+    try {
+      // Criar preferência de pagamento no Mercado Pago
+      const response = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contrato,
+          email,
+          nome,
+          empresa,
+          telefone,
+          descontoPix
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao processar pagamento')
+      }
+
+      // Redirecionar para o checkout do Mercado Pago
+      window.location.href = data.init_point
+
+    } catch (error) {
+      console.error('Erro:', error)
+      setErro(error.message || 'Erro ao processar pagamento. Tente novamente.')
+    } finally {
+      setLoading(false)
     }
-
-    // Redirecionar para página de checkout REAL
-    router.push(`/checkout?contrato=${contrato.slug}&nome=${encodeURIComponent(formData.nome)}&email=${encodeURIComponent(formData.email)}`)
-  }
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handlePaymentChange = (e) => {
-    setPaymentMethod(e.target.value)
-  }
-
-  const calcularPreco = () => {
-    return paymentMethod === 'pix' ? contrato.preco * 0.95 : contrato.preco
   }
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Finalizar Compra</h2>
-      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Nome Completo *
-          </label>
-          <input
-            type="text"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            placeholder="Seu nome completo"
-          />
-        </div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        Finalizar Compra
+      </h2>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email *
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            placeholder="seu@email.com"
-          />
+      {/* Resumo do Pedido */}
+      <div className="bg-gray-50 rounded-xl p-6 mb-6">
+        <h3 className="font-semibold text-gray-900 mb-4">Resumo do Pedido</h3>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-gray-600">{contrato.nome}</span>
+          <span className="text-gray-900 font-semibold">R$ {precoOriginal}</span>
         </div>
+        
+        {descontoPix && (
+          <div className="flex justify-between items-center mb-2 text-green-600">
+            <span>Desconto Pagamento PIX (5%)</span>
+            <span>- R$ {valorDesconto.toFixed(2)}</span>
+          </div>
+        )}
+        
+        <div className="border-t border-gray-200 pt-2 mt-2">
+          <div className="flex justify-between items-center">
+            <span className="font-semibold text-gray-900">Total</span>
+            <span className="text-xl font-bold text-blue-600">
+              R$ {precoComDesconto.toFixed(2)}
+            </span>
+          </div>
+        </div>
+      </div>
 
+      {/* Método de Pagamento */}
+      <div className="mb-6">
+        <h3 className="font-semibold text-gray-900 mb-4">Método de Pagamento</h3>
         <div className="grid grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => setMetodoPagamento('pix')}
+            className={`p-4 border-2 rounded-lg text-center transition-colors ${
+              metodoPagamento === 'pix'
+                ? 'border-blue-500 bg-blue-50 text-blue-700'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            <div className="font-semibold">PIX</div>
+            <div className="text-sm text-green-600">5% de desconto</div>
+          </button>
+          
+          <button
+            type="button"
+            onClick={() => setMetodoPagamento('cartao')}
+            className={`p-4 border-2 rounded-lg text-center transition-colors ${
+              metodoPagamento === 'cartao'
+                ? 'border-blue-500 bg-blue-50 text-blue-700'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            <div className="font-semibold">Cartão</div>
+            <div className="text-sm text-gray-600">Crédito ou Débito</div>
+          </button>
+        </div>
+      </div>
+
+      {/* Formulário */}
+      <form onSubmit={handleSubmit}>
+        <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              CPF *
+            <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-1">
+              Nome Completo *
             </label>
             <input
               type="text"
-              name="cpf"
-              value={formData.cpf}
-              onChange={handleChange}
+              id="nome"
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="000.000.000-00"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Seu nome completo"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Telefone *
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="seu@email.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="empresa" className="block text-sm font-medium text-gray-700 mb-1">
+              Empresa (opcional)
+            </label>
+            <input
+              type="text"
+              id="empresa"
+              value={empresa}
+              onChange={(e) => setEmpresa(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Nome da sua empresa"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="telefone" className="block text-sm font-medium text-gray-700 mb-1">
+              Telefone (opcional)
             </label>
             <input
               type="tel"
-              name="telefone"
-              value={formData.telefone}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              id="telefone"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="(11) 99999-9999"
             />
           </div>
         </div>
 
-        {/* Resumo do Pedido */}
-        <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-          <h3 className="font-semibold text-gray-900 mb-4 text-lg">Resumo do Pedido</h3>
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-600">{contrato.nome}</span>
-            <span className="font-semibold">R$ {contrato.preco}</span>
+        {erro && (
+          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700 text-sm">{erro}</p>
           </div>
-          {paymentMethod === 'pix' && (
-            <div className="flex justify-between items-center mb-2 text-sm">
-              <span className="text-green-600">Desconto PIX (5%)</span>
-              <span className="text-green-600">-R$ {(contrato.preco * 0.05).toFixed(2)}</span>
-            </div>
-          )}
-          <div className="flex justify-between items-center border-t border-gray-300 pt-4 mt-2">
-            <span className="font-semibold text-gray-900 text-lg">Total</span>
-            <span className="text-2xl font-bold text-blue-600">R$ {calcularPreco().toFixed(2)}</span>
-          </div>
-        </div>
-
-        {/* Métodos de Pagamento */}
-        <div>
-          <h3 className="font-semibold text-gray-900 mb-4 text-lg">Método de Pagamento</h3>
-          <div className="space-y-3">
-            <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
-              <input 
-                type="radio" 
-                name="payment" 
-                value="pix" 
-                className="text-blue-600 focus:ring-blue-500" 
-                onChange={handlePaymentChange}
-                checked={paymentMethod === 'pix'}
-              />
-              <div className="ml-3 flex-1">
-                <span className="font-medium block">PIX</span>
-                <span className="text-sm text-gray-600">Pagamento instantâneo</span>
-              </div>
-              <span className="ml-auto text-green-600 font-semibold bg-green-100 px-2 py-1 rounded text-sm">5% OFF</span>
-            </label>
-            
-            <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
-              <input 
-                type="radio" 
-                name="payment" 
-                value="card" 
-                className="text-blue-600 focus:ring-blue-500" 
-                onChange={handlePaymentChange}
-                checked={paymentMethod === 'card'}
-              />
-              <div className="ml-3 flex-1">
-                <span className="font-medium block">Cartão de Crédito</span>
-                <span className="text-sm text-gray-600">Até 12x sem juros</span>
-              </div>
-            </label>
-            
-            <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50">
-              <input 
-                type="radio" 
-                name="payment" 
-                value="boleto" 
-                className="text-blue-600 focus:ring-blue-500" 
-                onChange={handlePaymentChange}
-                checked={paymentMethod === 'boleto'}
-              />
-              <div className="ml-3 flex-1">
-                <span className="font-medium block">Boleto Bancário</span>
-                <span className="text-sm text-gray-600">Pagamento em 1-2 dias úteis</span>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        {/* Termos e Condições */}
-        <div className="bg-blue-50 rounded-lg p-4">
-          <label className="flex items-start">
-            <input 
-              type="checkbox" 
-              required 
-              className="text-blue-600 focus:ring-blue-500 mt-1 mr-3" 
-            />
-            <span className="text-sm text-gray-700">
-              Concordo com os <a href="#" className="text-blue-600 hover:text-blue-800 underline">Termos de Uso</a> e <a href="#" className="text-blue-600 hover:text-blue-800 underline">Política de Privacidade</a>. Estou ciente de que receberei o contrato por email após a confirmação do pagamento.
-            </span>
-          </label>
-        </div>
+        )}
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-4 px-6 rounded-lg hover:bg-green-700 transition-colors font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-200"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-4 px-8 rounded-lg hover:bg-blue-700 transition-colors font-bold text-lg mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {paymentMethod === 'pix' ? (
-            <>
-              COMPRAR COM PIX - R$ {calcularPreco().toFixed(2)}
-              <div className="text-sm font-normal opacity-90">Economize R$ {(contrato.preco * 0.05).toFixed(2)}</div>
-            </>
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-2"></div>
+              Processando...
+            </div>
           ) : (
-            `COMPRAR AGORA - R$ ${calcularPreco().toFixed(2)}`
+            `Comprar Agora - R$ ${precoComDesconto.toFixed(2)}`
           )}
         </button>
 
-        <div className="text-center text-sm text-gray-500 space-y-1">
-          <div className="flex items-center justify-center">
-            <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            Pagamento 100% seguro
-          </div>
-          <div className="flex items-center justify-center">
-            <svg className="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Download disponível imediatamente
-          </div>
-        </div>
+        <p className="text-center text-gray-500 text-sm mt-4">
+          Pagamento 100% seguro via Mercado Pago
+        </p>
       </form>
     </div>
   )
