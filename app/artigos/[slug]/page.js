@@ -1046,109 +1046,85 @@ export default function ArtigoPage() {
           </article>
         </div>
       </section>
-{/* Lead Magnet - Aparece em TODOS os artigos */}
-<div className="mt-12 p-8 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl border-2 border-blue-200 shadow-lg">
-  <div className="text-center">
-    <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full mb-4">
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-    </div>
+<form 
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const button = form.querySelector('button');
     
-    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-      Modelo Pronto do Contrato de {artigo?.categoria || 'Serviços'}
-    </h3>
+    // Mostrar loading
+    button.disabled = true;
+    button.innerHTML = '⏳ Enviando...';
     
-    <p className="text-gray-700 mb-6 text-lg">
-      <strong>Grátis:</strong> Receba o contrato profissional desenvolvido por <strong>Dr. Reginaldo Oliveira</strong>
-    </p>
-
-    <div className="grid md:grid-cols-2 gap-4 mb-6 text-left max-w-2xl mx-auto">
-      <div className="flex items-start">
-        <div className="bg-green-100 p-2 rounded-lg mr-3">
-          <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <div>
-          <h4 className="font-semibold text-gray-900">Juridicamente Válido</h4>
-          <p className="text-gray-600 text-sm">Baseado no Código Civil</p>
-        </div>
-      </div>
+    try {
+      // Enviar para nossa API
+      const response = await fetch('/api/save-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email: email,
+          artigo: artigo?.titulo || 'Artigo desconhecido'
+        }),
+      });
       
-      <div className="flex items-start">
-        <div className="bg-green-100 p-2 rounded-lg mr-3">
-          <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <div>
-          <h4 className="font-semibold text-gray-900">Pronto para Usar</h4>
-          <p className="text-gray-600 text-sm">Apenas preencha os campos</p>
-        </div>
-      </div>
-    </div>
-
-    <form 
-      onSubmit={(e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
+      const data = await response.json();
+      
+      if (data.success) {
+        // Download do PDF
+        const link = document.createElement('a');
+        link.href = '/contrato-gratis.pdf';
+        link.download = 'Contrato-Prestacao-Servicos-Dr-Reginaldo-Oliveira.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         
-        // Enviar email para contato@contratosexpresso.com.br
-        fetch('/api/save-lead', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            email: email,
-            artigo: artigo?.titulo || 'Artigo desconhecido'
-          }),
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // Download do PDF
-            const link = document.createElement('a');
-            link.href = '/contrato-gratis.pdf';
-            link.download = 'Contrato-Prestacao-Servicos-Dr-Reginaldo-Oliveira.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            alert('✅ Contrato enviado! Verifique seu email em breve.');
-          }
-        })
-        .catch(error => {
-          console.error('Erro:', error);
-          alert('❌ Erro ao enviar. Tente novamente.');
-        });
-      }}
-      className="space-y-4 max-w-md mx-auto"
-    >
-      <div>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="seu@email.com"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+        // Resetar formulário
+        form.reset();
+        button.innerHTML = '✅ CONTRATO ENVIADO!';
+        
+        // Mensagem de sucesso
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = '📥 BAIXAR CONTRATO GRÁTIS AGORA';
+        }, 3000);
+        
+      } else {
+        throw new Error(data.message);
+      }
       
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-4 px-8 rounded-lg hover:bg-blue-700 transition-all font-semibold text-lg shadow-lg"
-      >
-        📥 BAIXAR CONTRATO GRÁTIS AGORA
-      </button>
-    </form>
-    
-    <p className="text-sm text-gray-500 mt-4">
-      ⚡ Download imediato • 🔒 Seu email está protegido
-    </p>
+    } catch (error) {
+      console.error('Erro:', error);
+      button.innerHTML = '❌ Erro - Tente Novamente';
+      button.disabled = false;
+      
+      setTimeout(() => {
+        button.innerHTML = '📥 BAIXAR CONTRATO GRÁTIS AGORA';
+      }, 3000);
+    }
+  }}
+  className="space-y-4 max-w-md mx-auto"
+>
+  {/* Resto do formulário permanece igual */}
+  <div>
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="seu@email.com"
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    />
   </div>
-</div>
+  
+  <button
+    type="submit"
+    className="w-full bg-blue-600 text-white py-4 px-8 rounded-lg hover:bg-blue-700 transition-all font-semibold text-lg shadow-lg"
+  >
+    📥 BAIXAR CONTRATO GRÁTIS AGORA
+  </button>
+</form>
       <Footer />
     </main>
   )
