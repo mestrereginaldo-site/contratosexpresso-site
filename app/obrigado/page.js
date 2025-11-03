@@ -7,11 +7,11 @@ export default function ObrigadoPage() {
     <main>
       <Header />
       
-      <section className="min-h-screen bg-gradient-to-br from-green-600 to-green-800 text-white py-20">
+      <section className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12">
             {/* Ícone de Sucesso */}
-            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+            <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-8">
               <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -21,7 +21,7 @@ export default function ObrigadoPage() {
               🎉 Parabéns!
             </h1>
             
-            <p className="text-xl md:text-2xl mb-8 text-green-100">
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
               Seu contrato foi adquirido com <strong>sucesso</strong>!
             </p>
 
@@ -30,21 +30,21 @@ export default function ObrigadoPage() {
               
               <div className="grid md:grid-cols-3 gap-6 text-left">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-white text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">1</div>
-                  <h3 className="font-semibold mb-2">Check your Email</h3>
-                  <p className="text-green-100 text-sm">Enviamos o contrato para seu email em 2 minutos</p>
+                  <div className="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">1</div>
+                  <h3 className="font-semibold mb-2">Verifique seu Email</h3>
+                  <p className="text-blue-100 text-sm">Enviamos o contrato para seu email em até 2 minutos</p>
                 </div>
                 
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-white text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">2</div>
+                  <div className="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">2</div>
                   <h3 className="font-semibold mb-2">Personalize</h3>
-                  <p className="text-green-100 text-sm">Preencha os dados específicos do seu negócio</p>
+                  <p className="text-blue-100 text-sm">Preencha os dados específicos do seu negócio</p>
                 </div>
                 
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-white text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">3</div>
+                  <div className="w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">3</div>
                   <h3 className="font-semibold mb-2">Use com Segurança</h3>
-                  <p className="text-green-100 text-sm">Assine e implemente com tranquilidade</p>
+                  <p className="text-blue-100 text-sm">Assine e implemente com tranquilidade</p>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@ export default function ObrigadoPage() {
             <div className="space-y-4 max-w-md mx-auto">
               <Link 
                 href="/contratos"
-                className="block w-full bg-yellow-400 text-green-900 font-bold py-4 px-8 rounded-lg hover:bg-yellow-300 transition-colors text-lg"
+                className="block w-full bg-yellow-400 text-blue-900 font-bold py-4 px-8 rounded-lg hover:bg-yellow-300 transition-colors text-lg"
               >
                 📄 Ver Mais Contratos
               </Link>
@@ -65,7 +65,7 @@ export default function ObrigadoPage() {
               </Link>
             </div>
 
-            <div className="mt-8 text-green-200 text-sm">
+            <div className="mt-8 text-blue-200 text-sm">
               ⚡ Em caso de dúvidas, entre em contato: contato@contratosexpresso.com
             </div>
           </div>
