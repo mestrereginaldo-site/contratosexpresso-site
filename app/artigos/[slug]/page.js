@@ -143,7 +143,7 @@ const artigosData = {
     data: '18 de Agosto, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '45 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Contratual'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-trabalho-pj': {
@@ -285,14 +285,14 @@ const artigosData = {
           <h3>💡 Dica do Especialista</h3>
           <p>"Documente tudo! Desde a seleção do prestador até a finalização do contrato. Em caso de fiscalização, a documentação robusta será sua principal defesa. Lembre-se: na dúvida, opte pela transparência e formalização excessiva."</p>
           <p><strong>Dr. Reginaldo Oliveira</strong><br>
-          Especialista em Direito Trabalhista e Previdenciário</p>
+          Especialista</p>
         </div>
       </section>
     `,
     data: '22 de Agosto, 2025',
     categoria: 'Contratos de Trabalho',
     tempoLeitura: '38 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Trabalhista'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'termo-confidencialidade-nda': {
@@ -398,14 +398,14 @@ const artigosData = {
           <h3>💡 Dica do Especialista</h3>
           <p>"Customize cada NDA para a relação específica. Um modelo genérico pode ser pior que nenhum acordo, pois cria falsa sensação de segurança. Inclua sempre due diligence da outra parte antes de compartilhar informações sensíveis."</p>
           <p><strong>Dr. Reginaldo Oliveira</strong><br>
-          Especialista em Propriedade Intelectual e Direito Digital</p>
+          Especialista</p>
         </div>
       </section>
     `,
     data: '26 de Agosto, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '42 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Propriedade Intelectual'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },  'contrato-parceria-comercial': {
     slug: 'contrato-parceria-comercial',
     titulo: 'Contrato de Parceria Comercial 2025: Estruturando Sociedades Estratégicas com Governança Corporativa Avançada',
@@ -520,14 +520,14 @@ const artigosData = {
           <h3>💡 Dica do Especialista</h3>
           <p>"Invista pelo menos 20% do tempo total da negociação na estruturação dos mecanismos de saída. A melhor parceria é aquela que, quando termina, deixa ambas as partes satisfeitas e abertas a novas colaborações futuras."</p>
           <p><strong>Dr. Reginaldo Oliveira</strong><br>
-          Especialista em Direito Societário e Fusões & Aquisições</p>
+          Especialista</p>
         </div>
       </section>
     `,
     data: '30 de Agosto, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '40 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Sociedades Empresariais'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-desenvolvimento-software': {
@@ -675,14 +675,14 @@ const artigosData = {
           <h3>💡 Dica do Especialista</h3>
           <p>"Inclua sempre uma cláusula de 'technology escrow' - depósito do código fonte em custódia com terceiro. Em caso de falência do desenvolvedor ou descumprimento contratual, você garante acesso ao código e continuidade do projeto."</p>
           <p><strong>Dr. Reginaldo Oliveira</strong><br>
-          Especialista em Direito Digital e Propriedade Intelectual</p>
+          Especialista</p>
         </div>
       </section>
     `,
     data: '3 de Setembro, 2025',
     categoria: 'Contratos de Tecnologia',
     tempoLeitura: '48 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Digital'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'pacote-completo-contratos': {
@@ -818,14 +818,14 @@ const artigosData = {
           <h3>💡 Dica do Especialista</h3>
           <p>"Comece sempre pelo pacote básico de 5-7 contratos essenciais para seu negócio. A experiência com essa base permitirá expandir de forma inteligente para contratos mais especializados, sempre alinhados com sua estratégia de crescimento."</p>
           <p><strong>Dr. Reginaldo Oliveira</strong><br>
-          Especialista em Estratégia Jurídica Empresarial</p>
+          Especialista</p>
         </div>
       </section>
     `,
     data: '7 de Setembro, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '35 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Estratégia Jurídica'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   // Nota: Devido à limitação de espaço, os próximos artigos serão resumidos. 
@@ -846,7 +846,7 @@ const artigosData = {
     data: '12 de Setembro, 2025',
     categoria: 'Locação e Imóveis',
     tempoLeitura: '50 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Imobiliário'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-compra-venda': {
@@ -864,7 +864,7 @@ const artigosData = {
     data: '17 de Setembro, 2025',
     categoria: 'Contratos Comerciais',
     tempoLeitura: '44 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Consumerista'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-consultoria': {
@@ -882,7 +882,7 @@ const artigosData = {
     data: '22 de Setembro, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '39 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Contratos de Consultoria'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-franquia': {
@@ -900,7 +900,7 @@ const artigosData = {
     data: '27 de Setembro, 2025',
     categoria: 'Contratos Empresariais',
     tempoLeitura: '52 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Franchising'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-servicos-digitais': {
@@ -918,7 +918,7 @@ const artigosData = {
     data: '2 de Outubro, 2025',
     categoria: 'Contratos de Tecnologia',
     tempoLeitura: '46 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Digital'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
   'contrato-comodato': {
     slug: 'contrato-comodato',
@@ -935,7 +935,7 @@ const artigosData = {
     data: '7 de Outubro, 2025',
     categoria: 'Contratos Diversos',
     tempoLeitura: '36 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Contratos Civis'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   },
 
   'contrato-representacao-comercial': {
@@ -953,7 +953,7 @@ const artigosData = {
     data: '12 de Outubro, 2025',
     categoria: 'Contratos Comerciais',
     tempoLeitura: '41 min de leitura',
-    autor: 'Dr. Reginaldo Oliveira, Esq. - Especialista em Direito Comercial'
+    autor: 'Dr. Reginaldo Oliveira - Especialista'
   }
 }
 
