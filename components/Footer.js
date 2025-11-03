@@ -40,10 +40,10 @@ export default function Footer() {
             <span className="text-gray-600">•</span>
             
             <a 
-              href="/calculadoras-juridicas" 
+              href="/artigos" 
               className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
             >
-              Calculadoras Jurídicas
+              Artigos
             </a>
           </div>
 
