@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
           
           <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
-            Soluções jurídicas especializadas em contratos empresariais desenvolvidas por Dr. Reginaldo Oliveira.
+            Soluções jurídicas especializadas em contratos.
           </p>
 
           {/* Links do Footer */}
@@ -53,7 +53,7 @@ export default function Footer() {
               © {currentYear} ContratosExpresso. Todos os direitos reservados.
             </p>
             <p className="text-gray-500 text-sm mt-2">
-              Desenvolvido por advogados especialistas • OAB/SP 123.456
+              Desenvolvido por advogados especialistas • OAB/SC 57.879
             </p>
           </div>
         </div>
