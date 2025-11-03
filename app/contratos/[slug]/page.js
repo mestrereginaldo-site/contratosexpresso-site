@@ -191,16 +191,6 @@ const contratosData = {
   }
 }
 
-// ⚠️ ADICIONEI: Esta função gera os paths estáticos durante o build
-export async function generateStaticParams() {
-  return Object.keys(contratosData).map((slug) => ({
-    slug: slug,
-  }))
-}
-
-// ⚠️ ADICIONEI: Esta configuração força renderização no cliente apenas
-export const dynamic = 'force-dynamic'
-
 export default function ContratoPage() {
   const params = useParams()
   const slug = params?.slug // ⚠️ CORREÇÃO: Added safe navigation
