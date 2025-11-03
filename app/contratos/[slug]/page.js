@@ -191,24 +191,35 @@ const contratosData = {
   }
 }
 
+// ⚠️ ADICIONEI: Esta função gera os paths estáticos durante o build
+export async function generateStaticParams() {
+  return Object.keys(contratosData).map((slug) => ({
+    slug: slug,
+  }))
+}
+
+// ⚠️ ADICIONEI: Esta configuração força renderização no cliente apenas
+export const dynamic = 'force-dynamic'
+
 export default function ContratoPage() {
   const params = useParams()
-  const slug = params.slug
-  const contrato = contratosData[slug]
+  const slug = params?.slug // ⚠️ CORREÇÃO: Added safe navigation
+  const contrato = slug ? contratosData[slug] : null
 
   // DEBUG: Adicione isto temporariamente para verificar
   console.log('Slug recebido:', slug)
   console.log('Contrato encontrado:', contrato)
   console.log('Todos os slugs disponíveis:', Object.keys(contratosData))
 
-  if (!contrato) {
+  // ⚠️ MELHORIA: Verificação mais robusta
+  if (!contrato || !slug) {
     return (
       <main>
         <Header />
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Contrato não encontrado</h1>
-            <p className="text-gray-600 mb-2">Slug: {slug}</p>
+            <p className="text-gray-600 mb-2">Slug: {slug || 'não fornecido'}</p>
             <a href="/contratos" className="text-blue-600 hover:text-blue-800">
               ← Voltar para contratos
             </a>
