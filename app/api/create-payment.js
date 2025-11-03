@@ -8,6 +8,13 @@ export default async function handler(req, res) {
   try {
     const { contrato, email, nome, descontoPix } = req.body;
 
+    // Verificar se os dados necessários estão presentes
+    if (!contrato || !email || !nome) {
+      return res.status(400).json({ 
+        message: 'Dados incompletos. Forneça contrato, email e nome.' 
+      });
+    }
+
     // Calcular preço final
     const precoFinal = descontoPix ? contrato.preco * 0.95 : contrato.preco;
 
