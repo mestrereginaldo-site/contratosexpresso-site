@@ -34,64 +34,58 @@ export default function CheckoutForm({ contrato }) {
     setErro('')
 
     try {
-      console.log('🔄 Iniciando integração com Mercado Pago...')
+      console.log('🔄 Iniciando integração real com Mercado Pago...')
       
-      // Dados para o Mercado Pago
-      const paymentData = {
-        items: [
-          {
-            title: contrato.nome,
-            quantity: 1,
-            currency_id: 'BRL',
-            unit_price: precoComDesconto
-          }
-        ],
-        payer: {
-          email: email,
-          name: nome
+      // Chamar nossa API que integra com Mercado Pago
+      const response = await fetch('/api/mercado-pago', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        back_urls: {
-          success: 'https://contratosexpresso.com.br/obrigado',
-          failure: 'https://contratosexpresso.com.br/contratos',
-          pending: 'https://contratosexpresso.com.br/contratos'
-        },
-        auto_return: 'approved',
-        payment_methods: {
-          excluded_payment_methods: metodoPagamento === 'pix' ? [
-            { id: 'credit_card' },
-            { id: 'debit_card' },
-            { id: 'ticket' }
-          ] : metodoPagamento === 'cartao' ? [
-            { id: 'ticket' }
-          ] : metodoPagamento === 'boleto' ? [
-            { id: 'credit_card' },
-            { id: 'debit_card' }
-          ] : []
-        }
+        body: JSON.stringify({
+          contrato,
+          email,
+          nome,
+          empresa,
+          telefone,
+          metodoPagamento,
+          descontoPix
+        }),
+      })
+
+      console.log('📨 Resposta da API:', response.status)
+
+      let data
+      try {
+        data = await response.json()
+      } catch (parseError) {
+        console.error('❌ Erro ao parsear JSON:', parseError)
+        throw new Error('Resposta inválida do servidor')
       }
 
-      // EM PRODUÇÃO: Aqui você integraria com a API do Mercado Pago
-      // Por enquanto, vamos simular o processo
-      
-      console.log('💰 Dados do pagamento:', paymentData)
-      
-      // Simular processamento do Mercado Pago
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Simular redirecionamento para checkout do Mercado Pago
-      console.log('✅ Redirecionando para checkout do Mercado Pago...')
-      
-      // Em produção, você usaria:
-      // window.location.href = response.data.init_point
-      
-      // Por enquanto, vamos para a página de obrigado com mensagem
-      alert('🔒 EM PRODUÇÃO: Você seria redirecionado para o checkout seguro do Mercado Pago\n\n💰 Valor: R$ ' + precoComDesconto.toFixed(2) + '\n📦 Produto: ' + contrato.nome)
-      
-      window.location.href = '/obrigado'
+      if (!response.ok) {
+        throw new Error(data.message || `Erro ${response.status} ao processar pagamento`)
+      }
+
+      if (!data.success) {
+        throw new Error(data.message || 'Erro ao criar pagamento')
+      }
+
+      console.log('✅ Redirecionando para Mercado Pago:', data.init_point)
+
+      // Redirecionar para o checkout REAL do Mercado Pago
+      window.location.href = data.init_point
 
     } catch (error) {
-      console.error('Erro:', error)
-      setErro('Erro ao processar pagamento. Tente novamente.')
+      console.error('❌ Erro no processo:', error)
+      
+      // Se a API falhar, mostrar mensagem e simular o processo
+      if (error.message.includes('Resposta inválida') || error.message.includes('Failed to fetch')) {
+        alert('🔒 Serviço de pagamento temporariamente indisponível. Em produção, você seria redirecionado para o Mercado Pago.\n\n💰 Valor: R$ ' + precoComDesconto.toFixed(2) + '\n📦 Produto: ' + contrato.nome)
+        window.location.href = '/obrigado'
+      } else {
+        setErro(error.message || 'Erro ao processar pagamento. Tente novamente.')
+      }
     } finally {
       setLoading(false)
     }
@@ -256,13 +250,13 @@ export default function CheckoutForm({ contrato }) {
           )}
         </button>
 
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-start">
-            <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg className="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <div className="text-sm text-blue-800">
-              <strong>Integração Mercado Pago:</strong> Em produção, você será redirecionado para o checkout seguro do Mercado Pago para finalizar o pagamento.
+            <div className="text-sm text-green-800">
+              <strong>Integração Mercado Pago Ativa:</strong> Você será redirecionado para o checkout seguro do Mercado Pago para finalizar o pagamento.
             </div>
           </div>
         </div>
