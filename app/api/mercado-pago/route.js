@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+// Note: Em produção, use variáveis de ambiente para o access_token
 const MERCADOPAGO_ACCESS_TOKEN = 'APP_USR-7541100388429313-110302-0c2dfd0a4992ebb67ac97996eaaba32d-1963614741';
 
 export async function POST(request) {
@@ -10,34 +11,48 @@ export async function POST(request) {
     // Calcular preço final
     const precoFinal = descontoPix ? contrato.preco * 0.95 : contrato.preco;
 
-    // Configurar métodos de pagamento
+    // Configurar métodos de pagamento excluídos baseado na escolha
     let excludedPaymentTypes = [];
     if (metodoPagamento === 'pix') {
-      excludedPaymentTypes = [{ id: 'credit_card' }, { id: 'debit_card' }, { id: 'ticket' }];
+      excludedPaymentTypes = [
+        { id: 'credit_card' },
+        { id: 'debit_card' },
+        { id: 'ticket' }
+      ];
     } else if (metodoPagamento === 'cartao') {
-      excludedPaymentTypes = [{ id: 'ticket' }];
+      excludedPaymentTypes = [
+        { id: 'ticket' }
+      ];
     } else if (metodoPagamento === 'boleto') {
-      excludedPaymentTypes = [{ id: 'credit_card' }, { id: 'debit_card' }];
+      excludedPaymentTypes = [
+        { id: 'credit_card' },
+        { id: 'debit_card' }
+      ];
     }
 
-    // Dados para o Mercado Pago
+    // Dados para a API do Mercado Pago
     const preferenceData = {
-      items: [{
-        title: contrato.nome,
-        quantity: 1,
-        currency_id: 'BRL',
-        unit_price: parseFloat(precoFinal.toFixed(2)),
-        description: contrato.descricao,
-      }],
-      payer: { email, name: nome },
+      items: [
+        {
+          title: contrato.nome,
+          quantity: 1,
+          currency_id: 'BRL',
+          unit_price: parseFloat(precoFinal.toFixed(2)),
+          description: contrato.descricao,
+        }
+      ],
+      payer: {
+        email: email,
+        name: nome,
+      },
       payment_methods: {
         excluded_payment_types: excludedPaymentTypes,
-        installments: 12
+        installments: 12 // Máximo de parcelas
       },
       back_urls: {
-        success: 'https://contratosexpresso.com.br/obrigado',
-        failure: 'https://contratosexpresso.com.br/contratos',
-        pending: 'https://contratosexpresso.com.br/contratos',
+        success: `${process.env.NEXTAUTH_URL || 'https://contratosexpresso.com.br'}/obrigado`,
+        failure: `${process.env.NEXTAUTH_URL || 'https://contratosexpresso.com.br'}/contratos`,
+        pending: `${process.env.NEXTAUTH_URL || 'https://contratosexpresso.com.br'}/contratos`,
       },
       auto_return: 'approved',
       statement_descriptor: 'CONTRATOSEXPRESSO',
@@ -49,7 +64,7 @@ export async function POST(request) {
       }
     };
 
-    // Chamar API do Mercado Pago
+    // Chamar a API do Mercado Pago
     const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
       method: 'POST',
       headers: {
@@ -61,7 +76,7 @@ export async function POST(request) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Erro ao criar pagamento');
+      throw new Error(errorData.message || 'Erro ao criar preferência de pagamento');
     }
 
     const data = await response.json();
@@ -70,12 +85,11 @@ export async function POST(request) {
       success: true,
       id: data.id,
       init_point: data.init_point,
-      sandbox_init_point: data.sandbox_init_point,
       message: 'Pagamento criado com sucesso'
     });
 
   } catch (error) {
-    console.error('Erro Mercado Pago:', error);
+    console.error('Erro na integração com Mercado Pago:', error);
     
     return NextResponse.json(
       { 
@@ -88,6 +102,7 @@ export async function POST(request) {
   }
 }
 
+// Configurar CORS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
