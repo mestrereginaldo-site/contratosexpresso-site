@@ -1,50 +1,45 @@
 const mercadopago = require('mercadopago');
 
-// Configure com suas credenciais
+// Configure com suas credenciais de produção
 mercadopago.configure({
   access_token: 'APP_USR-7541100388429313-110302-0c2dfd0a4992ebb67ac97996eaaba32d-1963614741'
 });
 
 export default async function handler(req, res) {
-  // Configurar CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { contrato, email, nome, empresa, telefone, descontoPix } = req.body;
-
-    console.log('📦 Dados recebidos:', { 
-      contrato: contrato?.nome,
-      email, 
-      nome, 
-      empresa,
-      telefone,
-      descontoPix 
-    });
-
-    // Validações básicas
-    if (!contrato || !email || !nome) {
-      return res.status(400).json({ 
-        success: false,
-        message: 'Dados incompletos. Preencha todos os campos obrigatórios.' 
-      });
-    }
+    const { contrato, email, nome, metodoPagamento, descontoPix } = req.body;
 
     // Calcular preço final
     const precoFinal = descontoPix ? contrato.preco * 0.95 : contrato.preco;
 
-    console.log('💰 Criando pagamento no Mercado Pago... Preço:', precoFinal);
+    // Configurar métodos de pagamento baseado na escolha
+    let paymentMethods = {
+      excluded_payment_methods: [],
+      excluded_payment_types: [],
+      installments: 12 // Máximo de parcelas
+    };
+
+    // Se o usuário escolheu um método específico, excluir os outros
+    if (metodoPagamento === 'pix') {
+      paymentMethods.excluded_payment_types = [
+        { id: 'credit_card' },
+        { id: 'debit_card' },
+        { id: 'ticket' }
+      ];
+    } else if (metodoPagamento === 'cartao') {
+      paymentMethods.excluded_payment_types = [
+        { id: 'ticket' }
+      ];
+    } else if (metodoPagamento === 'boleto') {
+      paymentMethods.excluded_payment_types = [
+        { id: 'credit_card' },
+        { id: 'debit_card' }
+      ];
+    }
 
     // Criar preferência de pagamento
     const preference = {
@@ -61,6 +56,7 @@ export default async function handler(req, res) {
         email: email,
         name: nome,
       },
+      payment_methods: paymentMethods,
       back_urls: {
         success: 'https://contratosexpresso.com.br/obrigado',
         failure: 'https://contratosexpresso.com.br/contratos',
@@ -73,18 +69,11 @@ export default async function handler(req, res) {
         contrato_nome: contrato.nome,
         customer_email: email,
         customer_name: nome,
-        customer_empresa: empresa,
-        customer_telefone: telefone
       }
     };
 
-    console.log('🔄 Enviando para Mercado Pago...');
     const response = await mercadopago.preferences.create(preference);
     
-    console.log('✅ Pagamento criado com sucesso! ID:', response.body.id);
-    console.log('🔗 Link:', response.body.init_point);
-
-    // Retornar resposta completa
     res.status(200).json({
       success: true,
       id: response.body.id,
@@ -93,14 +82,8 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('❌ Erro detalhado ao criar pagamento:', error);
+    console.error('Erro ao criar pagamento Mercado Pago:', error);
     
-    // Log mais detalhado do erro do Mercado Pago
-    if (error.response) {
-      console.error('📋 Resposta do erro Mercado Pago:', error.response.body);
-    }
-    
-    // Sempre retornar JSON válido, mesmo em caso de erro
     res.status(500).json({ 
       success: false,
       message: 'Erro ao processar pagamento. Tente novamente.',
