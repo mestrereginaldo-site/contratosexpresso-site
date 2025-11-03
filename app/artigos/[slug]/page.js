@@ -1046,29 +1046,6 @@ export default function ArtigoPage() {
           </article>
         </div>
       </section>
-     <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-2xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-8">🧪 Página de Teste</h1>
-          
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold mb-4 text-green-600">TESTE DO DOWNLOAD PDF</h2>
-            <p className="text-gray-700 mb-6">
-              Clique no botão abaixo para testar o download do contrato gratuito.
-            </p>
-            
-            <button 
-              onClick={handleDownload}
-              className="bg-blue-600 text-white py-4 px-8 rounded-lg hover:bg-blue-700 text-lg font-semibold"
-            >
-              📥 BAIXAR CONTRATO GRÁTIS (TESTE)
-            </button>
-            
-            <p className="text-sm text-gray-500 mt-4">
-              Se o download iniciar, está funcionando!
-            </p>
-          </div>
-        </div>
-      </div>
       <Footer />
     </main>
   )
