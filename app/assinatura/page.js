@@ -1,5 +1,6 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
@@ -74,6 +75,103 @@ export default function Assinatura() {
   const searchParams = useSearchParams()
   const planoKey = searchParams.get('plano') || 'profissional'
   const plano = planos[planoKey] || planos.profissional
+  const [loading, setLoading] = useState(false)
+  const [erro, setErro] = useState('')
+  const [urlMercadoPago, setUrlMercadoPago] = useState('')
+  const [showRedirectButton, setShowRedirectButton] = useState(false)
+
+  const handleAssinatura = async () => {
+    setLoading(true)
+    setErro('')
+    setShowRedirectButton(false)
+
+    try {
+      console.log('🔄 Iniciando assinatura:', plano.nome)
+      
+      // Chamar API do Mercado Pago para assinatura
+      const response = await fetch('/api/mercado-pago', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contrato: {
+            id: `assinatura-${planoKey}`,
+            nome: `Assinatura ${plano.nome}`,
+            preco: plano.preco,
+            descricao: plano.descricao
+          },
+          email: 'assinatura@contratosexpresso.com.br', // Email será coletado no Mercado Pago
+          nome: 'Cliente Contratos Expresso', // Nome será coletado no Mercado Pago
+          metodoPagamento: 'cartao', // Assinaturas geralmente são no cartão
+          descontoPix: false // Não aplica desconto para assinaturas
+        }),
+      })
+
+      console.log('📨 Resposta da API:', response.status)
+
+      let data
+      try {
+        data = await response.json()
+      } catch (parseError) {
+        console.error('❌ Erro ao parsear JSON:', parseError)
+        throw new Error('Resposta inválida do servidor')
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || `Erro ${response.status} ao processar assinatura`)
+      }
+
+      if (!data.success) {
+        throw new Error(data.message || 'Erro ao criar assinatura')
+      }
+
+      console.log('✅ URL do Mercado Pago:', data.init_point)
+      setUrlMercadoPago(data.init_point)
+
+      // Tentar redirecionamento automático
+      console.log('🔄 Tentando redirecionamento automático...')
+      
+      // Método 1: Tentar redirecionamento normal
+      try {
+        window.location.href = data.init_point
+      } catch (error) {
+        console.log('❌ Redirecionamento automático falhou:', error)
+      }
+
+      // Método 2: Se não redirecionou em 2 segundos, mostrar botão manual
+      setTimeout(() => {
+        if (!document.hidden) { // Se a página ainda está visível
+          console.log('🕒 Mostrando botão de redirecionamento manual')
+          setShowRedirectButton(true)
+          setLoading(false)
+        }
+      }, 2000)
+
+    } catch (error) {
+      console.error('❌ Erro no processo:', error)
+      
+      if (error.message.includes('Resposta inválida') || error.message.includes('Failed to fetch')) {
+        alert(`🔒 Serviço de pagamento temporariamente indisponível. Em produção, você seria redirecionado para o Mercado Pago.\n\n💰 Valor: R$ ${plano.preco}/mês\n📦 Plano: ${plano.nome}`)
+      } else {
+        setErro(error.message || 'Erro ao processar assinatura. Tente novamente.')
+        setLoading(false)
+      }
+    }
+  }
+
+  const handleManualRedirect = () => {
+    if (urlMercadoPago) {
+      // Método mais compatível com Safari
+      const link = document.createElement('a')
+      link.href = urlMercadoPago
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+  }
 
   return (
     <main>
@@ -126,13 +224,60 @@ export default function Assinatura() {
                 </ul>
               </div>
 
-              <button className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg mb-4">
-                🚀 Assinar {plano.nome} - R$ {plano.preco}/mês
+              {erro && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-700 text-sm">{erro}</p>
+                </div>
+              )}
+
+              {showRedirectButton && (
+                <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-yellow-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <div className="text-sm text-yellow-800">
+                      <strong>Redirecionamento necessário:</strong> Clique no botão abaixo para acessar o checkout do Mercado Pago.
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleManualRedirect}
+                    className="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors font-bold mt-3"
+                  >
+                    🔒 Acessar Checkout do Mercado Pago
+                  </button>
+                </div>
+              )}
+
+              <button 
+                onClick={handleAssinatura}
+                disabled={loading || showRedirectButton}
+                className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-2"></div>
+                    Conectando ao Mercado Pago...
+                  </div>
+                ) : (
+                  `🚀 Assinar ${plano.nome} - R$ ${plano.preco}/mês`
+                )}
               </button>
               
               <p className="text-center text-sm text-gray-600">
-                Pagamento 100% seguro • Sem taxas ocultas
+                Pagamento 100% seguro via Mercado Pago • Sem taxas ocultas
               </p>
+
+              <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="text-sm text-blue-800">
+                    <strong>Integração Mercado Pago:</strong> Você será redirecionado para o checkout seguro para finalizar a assinatura.
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Detalhes do Plano */}
