@@ -9,8 +9,6 @@ export default function CheckoutForm({ contrato }) {
   const [loading, setLoading] = useState(false)
   const [metodoPagamento, setMetodoPagamento] = useState('pix')
   const [erro, setErro] = useState('')
-  const [urlMercadoPago, setUrlMercadoPago] = useState('')
-  const [showRedirectButton, setShowRedirectButton] = useState(false)
 
   // Verificar se contrato existe
   if (!contrato) {
@@ -34,11 +32,11 @@ export default function CheckoutForm({ contrato }) {
     e.preventDefault()
     setLoading(true)
     setErro('')
-    setShowRedirectButton(false)
 
     try {
-      console.log('🔄 Iniciando integração com Mercado Pago...')
+      console.log('🔄 Iniciando integração real com Mercado Pago...')
       
+      // Chamar nossa API que integra com Mercado Pago
       const response = await fetch('/api/mercado-pago', {
         method: 'POST',
         headers: {
@@ -73,51 +71,23 @@ export default function CheckoutForm({ contrato }) {
         throw new Error(data.message || 'Erro ao criar pagamento')
       }
 
-      console.log('✅ URL do Mercado Pago:', data.init_point)
-      setUrlMercadoPago(data.init_point)
+      console.log('✅ Redirecionando para Mercado Pago:', data.init_point)
 
-      // Tentar redirecionamento automático
-      console.log('🔄 Tentando redirecionamento automático...')
-      
-      // Método 1: Tentar redirecionamento normal
-      try {
-        window.location.href = data.init_point
-      } catch (error) {
-        console.log('❌ Redirecionamento automático falhou:', error)
-      }
-
-      // Método 2: Se não redirecionou em 2 segundos, mostrar botão manual
-      setTimeout(() => {
-        if (!document.hidden) { // Se a página ainda está visível
-          console.log('🕒 Mostrando botão de redirecionamento manual')
-          setShowRedirectButton(true)
-          setLoading(false)
-        }
-      }, 2000)
+      // Redirecionar para o checkout REAL do Mercado Pago
+      window.location.href = data.init_point
 
     } catch (error) {
       console.error('❌ Erro no processo:', error)
       
+      // Se a API falhar, mostrar mensagem e simular o processo
       if (error.message.includes('Resposta inválida') || error.message.includes('Failed to fetch')) {
         alert('🔒 Serviço de pagamento temporariamente indisponível. Em produção, você seria redirecionado para o Mercado Pago.\n\n💰 Valor: R$ ' + precoComDesconto.toFixed(2) + '\n📦 Produto: ' + contrato.nome)
         window.location.href = '/obrigado'
       } else {
         setErro(error.message || 'Erro ao processar pagamento. Tente novamente.')
-        setLoading(false)
       }
-    }
-  }
-
-  const handleManualRedirect = () => {
-    if (urlMercadoPago) {
-      // Método mais compatível com Safari
-      const link = document.createElement('a')
-      link.href = urlMercadoPago
-      link.target = '_blank'
-      link.rel = 'noopener noreferrer'
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -265,48 +235,28 @@ export default function CheckoutForm({ contrato }) {
           </div>
         )}
 
-        {showRedirectButton && (
-          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <div className="flex items-start">
-              <svg className="w-5 h-5 text-yellow-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-              <div className="text-sm text-yellow-800">
-                <strong>Redirecionamento necessário:</strong> Clique no botão abaixo para acessar o checkout do Mercado Pago.
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={handleManualRedirect}
-              className="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors font-bold mt-3"
-            >
-              🔒 Acessar Checkout do Mercado Pago
-            </button>
-          </div>
-        )}
-
         <button
           type="submit"
-          disabled={loading || showRedirectButton}
+          disabled={loading}
           className="w-full bg-blue-600 text-white py-4 px-8 rounded-lg hover:bg-blue-700 transition-colors font-bold text-lg mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
             <div className="flex items-center justify-center">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-2"></div>
-              Conectando ao Mercado Pago...
+              Processando...
             </div>
           ) : (
             `Comprar Agora - R$ ${precoComDesconto.toFixed(2)}`
           )}
         </button>
 
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-start">
-            <svg className="w-5 h-5 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg className="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <div className="text-sm text-blue-800">
-              <strong>Compatibilidade com Safari:</strong> Se o redirecionamento automático não funcionar, um botão será exibido para acesso manual ao checkout.
+            <div className="text-sm text-green-800">
+              <strong>Integração Mercado Pago Ativa:</strong> Você será redirecionado para o checkout seguro do Mercado Pago para finalizar o pagamento.
             </div>
           </div>
         </div>
