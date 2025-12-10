@@ -101,7 +101,7 @@ export default function Assinatura() {
             preco: plano.preco,
             descricao: plano.descricao
           },
-          email: 'assinatura@contratosexpresso.com.br', // Email será coletado no Mercado Pago
+          email: 'contato@contratosexpresso.com.br', // Email será coletado no Mercado Pago
           nome: 'Cliente Contratos Expresso', // Nome será coletado no Mercado Pago
           metodoPagamento: 'cartao', // Assinaturas geralmente são no cartão
           descontoPix: false // Não aplica desconto para assinaturas
