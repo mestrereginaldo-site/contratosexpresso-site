@@ -4,7 +4,7 @@
     
     <url>
         <loc>https://contratosexpresso.com.br/</loc>
-        <lastmod>2024-01-15</lastmod>
+        <lastmod>2025-12-10</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <xhtml:link rel="alternate" hreflang="pt-BR" href="https://contratosexpresso.com.br/"/>
@@ -15,21 +15,21 @@
     <!-- Futuras páginas que você pode criar -->
     <url>
         <loc>https://contratosexpresso.com.br/contratos-prestacao-servicos</loc>
-        <lastmod>2024-01-15</lastmod>
+        <lastmod>2025-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://contratosexpresso.com.br/contratos-nda</loc>
-        <lastmod>2024-01-15</lastmod>
+        <lastmod>2025-12-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://contratosexpresso.com.br/blog</loc>
-        <lastmod>2024-01-15</lastmod>
+        <lastmod>2025-12-10</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
