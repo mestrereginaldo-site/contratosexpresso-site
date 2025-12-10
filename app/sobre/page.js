@@ -23,7 +23,7 @@ export default function Sobre() {
             <h2>Nossa Missão</h2>
             <p>
               O Contratos Expresso nasceu da necessidade de oferecer <strong>documentos jurídicos acessíveis</strong> 
-              para pequenas empresas, empreendedores e profissionais autônomos. Acreditamos que a 
+                para pequenas empresas, empreendedores e profissionais autônomos. Acreditamos que a 
               <strong> segurança jurídica não deve ser um luxo</strong>, mas um direito de todos.
             </p>
 
