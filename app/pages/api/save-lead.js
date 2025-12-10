@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       // 2. Enviar email para contato@contratosexpresso.com.br
       const emailData = {
         to: 'contato@contratosexpresso.com.br',
-        from: 'leads@contratosexpresso.com.br', // ou seu email de envio
+        from: 'contato@contratosexpresso.com.br', // ou seu email de envio
         subject: `🎯 NOVO LEAD - ${artigo}`,
         text: `
           NOVO LEAD CAPTURADO NO SITE:
