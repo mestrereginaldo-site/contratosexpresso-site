@@ -273,11 +273,71 @@ export default function ContratoPage() {
             </div>
 
             {/* Formulário de Checkout */}
-            <div>
-              <CheckoutForm contrato={contrato} />
-            </div>
-          </div>
-        </div>
+            {/* Formulário de Checkout */}
+<div>
+  {/* 🚨 AVISO URGENTE - COLE ISSO ANTES DO FORMULÁRIO 🚨 */}
+  <div style={{
+    background: 'linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%)',
+    border: '2px solid #f39c12',
+    padding: '20px',
+    borderRadius: '10px',
+    marginBottom: '25px',
+    textAlign: 'center',
+    boxShadow: '0 4px 15px rgba(243, 156, 18, 0.1)'
+  }}>
+    <div style={{
+      background: 'white',
+      borderRadius: '8px',
+      padding: '15px',
+      marginBottom: '15px'
+    }}>
+      <p style={{
+        color: '#d35400',
+        margin: '0 0 10px 0',
+        fontSize: '18px',
+        fontWeight: 'bold'
+      }}>
+        ⚠️ PASSO IMPORTANTE APÓS O PAGAMENTO
+      </p>
+      <p style={{ color: '#856404', margin: 0, fontSize: '16px' }}>
+        1. Anote seu número do pedido<br />
+        2. Envie um WhatsApp para nosso suporte<br />
+        3. Informe seu nome e email<br />
+        4. Receba seu contrato em até 24h
+      </p>
+    </div>
+    
+    <a 
+      href="https://wa.me/5571986482241?text=Olá! Acabei de comprar um contrato. Meu nome é: [SEU NOME] e email: [SEU EMAIL]"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: 'inline-block',
+        background: '#25D366',
+        color: 'white',
+        padding: '12px 25px',
+        borderRadius: '50px',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        fontSize: '16px',
+        border: '2px solid white',
+        boxShadow: '0 4px 10px rgba(37, 211, 102, 0.3)',
+        transition: 'all 0.3s'
+      }}
+      onMouseOver="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(37, 211, 102, 0.4)';"
+      onMouseOut="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(37, 211, 102, 0.3)';"
+    >
+      📱 Enviar WhatsApp Agora
+    </a>
+    
+    <p style={{ color: '#7d6608', margin: '15px 0 0 0', fontSize: '14px' }}>
+      <strong>WhatsApp:</strong> (71) 98648-2241<br />
+      <strong>Horário:</strong> Segunda a Sexta, 9h às 18h
+    </p>
+  </div>
+
+  <CheckoutForm contrato={contrato} />
+</div>
       </section>
 
       <Footer />
