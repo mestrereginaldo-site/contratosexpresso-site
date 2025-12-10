@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://contratosexpresso.com.br/sitemap.xml
+Sitemap: https://contratosexpresso.com.br/sitemap-pt.xml
+
+# Otimização para Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+Host: https://contratosexpresso.com.br
